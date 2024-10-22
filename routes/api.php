@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebsitePostController;
+use App\Http\Controllers\SubscriptionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,7 +20,8 @@ use App\Http\Controllers\WebsitePostController;
 //});
 
 Route::prefix('v1')->group(function (){
-    Route::controller(WebsitePostController::class)->prefix('websites')->group(function (){
-        Route::post('/{website:website_uuid}/posts', 'store');
+    Route::prefix('websites/{website:website_uuid}')->group(function (){
+        Route::post('/posts', [WebsitePostController::class, 'store']);
+
     });
 });
