@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Website;
 use App\Models\EmailLog;
+use App\Jobs\SendEmailJob;
+use Illuminate\Support\Facades\Log;
+
 class SendWebsitePostEmails extends Command
 {
     /**
@@ -40,6 +43,7 @@ class SendWebsitePostEmails extends Command
 
                                     if (!EmailLog::where(['website_post_id'=>$post->id, 'user_id'=>$subscriber->id])->exists()) {
 
+                                        SendEmailJob::dispatch($subscriber, $post);
                                         EmailLog::create(['website_post_id' => $post->id,'user_id' => $subscriber->id]); // Log the email
                                     }
 
