@@ -11,8 +11,19 @@ class WebsitePost extends Model
 
     protected $connection   = 'mysql';
     protected $table        = 'website_posts';
-    protected $fillable     = ['website_id', 'title', 'title_slug','description','status'];
+    protected $fillable     = ['website_post_uuid', 'website_id', 'title', 'title_slug','description','status'];
 
+
+    /**
+     * set UUID for website before creating record
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->website_post_uuid = str()->uuid()->toString();
+        });
+    }
 
     public function website()
     {
