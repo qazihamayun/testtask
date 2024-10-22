@@ -10,7 +10,7 @@ class EmailLog extends Model
 {
     use HasFactory;
     protected $connection = 'mysql';
-    protected $table = 'email_log';
+    protected $table = 'email_logs';
     protected $fillable = ['website_post_id','user_id'];
 
 
