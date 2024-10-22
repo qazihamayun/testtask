@@ -11,7 +11,21 @@ class Website extends Model
 
     protected $connection   = 'mysql';
     protected $table        = 'websites';
-    protected $fillable     = ['name','url'];
+    protected $fillable     = ['website_uuid', 'name','url'];
+
+
+    /**
+     * set UUID for website before creating record
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->website_uuid = str()->uuid()->toString();
+        });
+    }
+
+
 
     public function posts(){
         return $this->hasMany(WebsitePost::class,'website_id','id');
