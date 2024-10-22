@@ -23,5 +23,7 @@ Route::prefix('v1')->group(function (){
     Route::prefix('websites/{website:website_uuid}')->group(function (){
         Route::post('/posts', [WebsitePostController::class, 'store']);
 
+        //subscribe website
+        Route::post('/subscribe', [SubscriptionController::class, 'subscribe']);
     });
 });
